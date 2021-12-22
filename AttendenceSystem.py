@@ -20,7 +20,6 @@ if(os.path.exists(attendancePath)):
     print('true')
 else:
     file = open(attendancePath,'w+')
-    file.write("Email,Time")
 
 
 
@@ -31,6 +30,7 @@ def markattendence(email):
         for line in myDataList:
             entry = line.split(',')
             emailList.append(entry[0])
+            print(emailList)
         if email not in emailList:
             now = datetime.now()
             ref = db.collection(u'attendance')
@@ -61,9 +61,9 @@ def findEncoding(images):
 encodings = findEncoding(images)
 # print(encodings)
 
-cp = cv2.VideoCapture(0)
+# cp = cv2.VideoCapture(0)
 
-cp.set(10, 100)
+# cp.set(10, 100)
 
 cap = cv2.VideoCapture(0)
 
@@ -76,8 +76,8 @@ while True:
     # imgS = cv2.cvtColor(imgS, cv2.COLOR_BGR2RGB)
 
     success2, img2 = cap.read()
-    imgS2 = cv2.resize(img2, (0, 0), None, 1, 1)
-    # imgS2 = cv2.resize(img2,(0,0),None,0.5,0.5)
+    # imgS2 = cv2.resize(img2, (0, 0), None, 1, 1)
+    imgS2 = cv2.resize(img2,(0,0),None,0.5,0.5)
     imgS2 = cv2.cvtColor(imgS2, cv2.COLOR_BGR2RGB)
 
     # faceloc = face_recognition.face_locations(imgS)
@@ -105,7 +105,7 @@ while True:
         matchIndex = np.argmin(matchdistances)
         y1, x2, y2, x1 = facelo
         # y1, x2, y2, x1 = y1 * 4, x2 * 4, y2 * 4, x1 * 4
-        # y1, x2, y2, x1 = y1 * 2, x2 * 2, y2 * 2, x1 * 2
+        y1, x2, y2, x1 = y1 * 2, x2 * 2, y2 * 2, x1 * 2
         cv2.rectangle(img2, (x1, y1), (x2, y2), (0, 255, 0), 1)
         if matches[matchIndex]:
             email = classNames[matchIndex].lower()
